@@ -15,6 +15,8 @@ export default () => {
 
         const paddingLeft = 50;
         const paddingTop = 50;
+        const width = 300;
+        const height = 300;
 
         const group1 = svg.append('g')
             .attr('transform', `translate(${paddingLeft}, ${paddingTop})`);
@@ -73,16 +75,51 @@ export default () => {
 
 
 
+
             const scaleX = d3.scaleBand()
                 .domain(data.map(d => d.id))
-                .range([0, 300])
+                .range([0, width])
+                .paddingInner(0.2)
+                .paddingOuter(0.2);
+
+            const labels = d3.scaleBand()
+                .domain(data.map(d => d.name))
+                .range([0, width])
                 .paddingInner(0.2)
                 .paddingOuter(0.2);
 
 
             const scaleY = d3.scaleLinear()
                 .domain([0, d3.max(data, d => d.value)])
-                .range([0, 300]);
+                .range([0, height]);
+
+
+            group1.append('text')
+                .attr('x', width/2)
+                .attr('y', 0)
+                .attr('font-size', '20px')
+                .attr('fill', '#fff')
+                .attr('text-anchor', 'middle')
+                .text("Test")
+
+
+            
+            const xAxisCall = d3.axisBottom(labels);
+            group1.append('g')
+                .attr('class', 'x axis')
+                .attr('transform', `translate(0, ${height})`)
+                .call(xAxisCall)
+                    .selectAll('text')
+                    .attr('x', '-5')
+                    .attr('y', '10')
+                    .attr('text-anchor', 'end')
+                    .attr('transform', 'rotate(-40)')
+
+            const yAxisCall = d3.axisLeft(scaleY);
+            group1.append('g')
+                .attr('class', 'y axis')
+                .call(yAxisCall);
+
 
             const rects = group1.selectAll("rect")
                 .data(data);
