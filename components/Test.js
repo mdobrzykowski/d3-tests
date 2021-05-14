@@ -10,7 +10,6 @@ export default () => {
 
         d3.json('../data/test.json').then(data => {
 
-            console.log(data);
             const svg = d3.select(chartArea)
                 .append('svg')
                 .attr('width', 400)

@@ -24,3 +24,8 @@ main{
   justify-content: center;
   height: 100vh;
 }
+
+
+svg{
+  border: 2px solid red;
+}

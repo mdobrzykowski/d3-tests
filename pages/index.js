@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Test from '../components/Test'
+import ScaleTest from '../components/ScaleTest'
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       </Head>
 
       <main>
-        <Test/>
+        {/* <Test/> */}
+        <ScaleTest/>
       </main>
     </>
   )
