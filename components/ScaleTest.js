@@ -8,6 +8,16 @@ export default () => {
     useEffect(() => {
         const chartArea = chartAreaRef.current;
 
+        const svg = d3.select(chartArea)
+        .append('svg')
+        .attr('width', 400)
+        .attr('height', 400);
+
+        const paddingLeft = 50;
+        const paddingTop = 50;
+
+        const group1 = svg.append('g')
+            .attr('transform', `translate(${paddingLeft}, ${paddingTop})`);
 
         d3.json('../data/scaleTest.json').then(data => {
 
@@ -74,13 +84,7 @@ export default () => {
                 .domain([0, d3.max(data, d => d.value)])
                 .range([0, 300]);
 
-
-            const svg = d3.select(chartArea)
-                .append('svg')
-                .attr('width', 300)
-                .attr('height', 300);
-
-            const rects = svg.selectAll("rect")
+            const rects = group1.selectAll("rect")
                 .data(data);
         
             rects.enter()
