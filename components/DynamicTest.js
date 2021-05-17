@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 
 let nr = 0;
-const getDataSet = () => {
+const getDataSet = len => {
     nr++;
-    if(nr > 2) nr = 0;
+    if(nr > len - 1) nr = 0;
     return nr;
 };
 
@@ -57,12 +57,14 @@ const DynamicTest = () => {
 
         d3.json('../data/dynamicTest.json').then(data => {
             function update(data){
+                const t = d3.transition().duration(750);
+
                 scaleX.domain(data.map(d => d.id));
                 scaleY.domain([0, d3.max(data, d => d.value)]);
                 labels.domain(data.map(d => d.name));
                 
                 const xAxisCall = d3.axisBottom(labels);
-                xAxisGroup.call(xAxisCall)
+                xAxisGroup.transition(t).call(xAxisCall)
                         .selectAll('text')
                         .attr('x', -5)
                         .attr('y', 10)
@@ -70,31 +72,41 @@ const DynamicTest = () => {
                         .attr('transform', 'rotate(-40)')
 
                 const yAxisCall = d3.axisLeft(scaleY);
-                yAxisGroup.call(yAxisCall);
+                yAxisGroup.transition(t).call(yAxisCall);
 
                 const rects = group1.selectAll("rect")
-                    .data(data);
+                    .data(data, d => d.id);
             
 
-                rects.exit().remove();
+                rects.exit()
+                    .attr('fill', 'red')
+                    .transition(t)
+                        .attr('y', d => 0)
+                        .attr('height', 0) 
+                        .remove();
 
-                rects.attr('x', d => scaleX(d.id))
+                rects.transition(t)
+                    .attr('x', d => scaleX(d.id))
                     .attr('y', d => scaleY(d.value))
                     .attr('width', scaleX.bandwidth)
                     .attr('height', d => height - scaleY(d.value));
 
                 rects.enter()
                     .append('rect')
-                    .attr('x', d => scaleX(d.id))
-                    .attr('y', d => scaleY(d.value))
-                    .attr('width', scaleX.bandwidth)
-                    .attr('height', d => height - scaleY(d.value))
-                    .attr('fill', "blue");
+                    .attr('fill', "blue")
+                    .attr('y', scaleY(0))
+                    .attr('height', 0)
+                    .merge(rects)
+                        .transition(t)
+                        .attr('x', d => scaleX(d.id))
+                        .attr('y', d => scaleY(d.value))
+                        .attr('width', scaleX.bandwidth)
+                        .attr('height', d => height - scaleY(d.value))
             }
             
 
             d3.interval(() => {
-                update(data[getDataSet()]);
+                update(data[getDataSet(data.length)]);
             }, 1000);
 
             update(data[0]);
