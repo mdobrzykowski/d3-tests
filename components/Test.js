@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 
-export default () => {
+const Test = () => {
     const chartAreaRef = useRef(null);
 
     useEffect(() => {
@@ -33,3 +33,5 @@ export default () => {
         <div ref={chartAreaRef}></div>
     );
 }
+
+export default Test;

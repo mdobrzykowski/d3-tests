@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
-import { xml } from 'd3';
 
-export default () => {
+const ScaleTest = () => {
     const chartAreaRef = useRef(null);
 
     useEffect(() => {
@@ -132,6 +131,10 @@ export default () => {
                 .attr('height', d => height - scaleY(d.value))
                 .attr('fill', "blue");
 
+            // d3.interval(() => {
+            //     console.log("Test");
+            // }, 1000);
+
         });
 
     }, []);
@@ -140,3 +143,5 @@ export default () => {
         <div ref={chartAreaRef}></div>
     );
 }
+
+export default ScaleTest;

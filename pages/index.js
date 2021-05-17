@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Test from '../components/Test'
 import ScaleTest from '../components/ScaleTest'
+import DynamicTest from '../components/DynamicTest'
 
 export default function Home() {
   return (
@@ -13,7 +14,8 @@ export default function Home() {
 
       <main>
         {/* <Test/> */}
-        <ScaleTest/>
+        {/* <ScaleTest/> */}
+        <DynamicTest/>
       </main>
     </>
   )
