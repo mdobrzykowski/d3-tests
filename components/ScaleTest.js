@@ -91,12 +91,12 @@ export default () => {
 
             const scaleY = d3.scaleLinear()
                 .domain([0, d3.max(data, d => d.value)])
-                .range([0, height]);
+                .range([height, 0]);
 
 
             group1.append('text')
                 .attr('x', width/2)
-                .attr('y', 0)
+                .attr('y', -10)
                 .attr('font-size', '20px')
                 .attr('fill', '#fff')
                 .attr('text-anchor', 'middle')
@@ -127,9 +127,9 @@ export default () => {
             rects.enter()
                 .append('rect')
                 .attr('x', d => scaleX(d.id))
-                .attr('y', 0)
+                .attr('y', d => scaleY(d.value))
                 .attr('width', scaleX.bandwidth)
-                .attr('height', d => scaleY(d.value))
+                .attr('height', d => height - scaleY(d.value))
                 .attr('fill', "blue");
 
         });
