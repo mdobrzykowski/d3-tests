@@ -3,6 +3,7 @@ import Test from '../components/Test'
 import ScaleTest from '../components/ScaleTest'
 import DynamicTest from '../components/DynamicTest'
 import ScatterPlotTest from '../components/ScatterPlotTest'
+import TipTest from '../components/TipTest'
 
 export default function Home() {
   return (
@@ -17,7 +18,8 @@ export default function Home() {
         {/* <Test/> */}
         {/* <ScaleTest/> */}
         {/* <DynamicTest/> */}
-        <ScatterPlotTest/>
+        {/* <ScatterPlotTest/> */}
+        <TipTest/>
       </main>
     </>
   )

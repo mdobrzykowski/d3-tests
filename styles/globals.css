@@ -29,3 +29,9 @@ main{
 svg{
   border: 2px solid red;
 }
+
+.d3-tip{
+  padding: 5px;
+  background: #333;
+  border-radius: 5px;
+}
