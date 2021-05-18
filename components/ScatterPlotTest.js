@@ -11,6 +11,23 @@ const getDataSet = len => {
 const ScatterPlotTest = () => {
     const chartAreaRef = useRef(null);
 
+    // const formater = d3.format('.0%');
+    // formater(.12)
+    // console.log(d3.format('.0%')(0.123));
+    // console.log(d3.format('($.2f')(-3.5));
+    // console.log(d3.format('+20')(42));
+    // console.log(d3.format('.^20')(42));
+    // console.log(d3.format('.2s')(42e6));
+    // console.log(d3.format('#x')(48879));
+    // console.log(d3.format(',.2r')(4223));
+
+    const timeFormat = d3.timeFormat('%B %d, %Y');
+    console.log(timeFormat(new Date));
+
+    const parseTime = d3.timeParse('%B %d, %Y');
+    console.log(parseTime('June 30, 2015'));
+
+
     useEffect(() => {
         const chartArea = chartAreaRef.current;
 
@@ -81,15 +98,12 @@ const ScatterPlotTest = () => {
                 circles.exit()
                     .attr('fill', 'red')
                     .transition(t)
-                        .attr('cy', d => 0)
-                        .attr('height', 0) 
+                        .attr('r', 0)
                         .remove();
 
                 circles.transition(t)
                     .attr('cx', d => scaleX(d.id))
                     .attr('cy', d => scaleY(d.value))
-                    .attr('width', scaleX.bandwidth)
-                    .attr('height', d => height - scaleY(d.value));
 
                 circles.enter()
                     .append('circle')
