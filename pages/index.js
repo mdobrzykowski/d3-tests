@@ -1,9 +1,10 @@
 import Head from 'next/head'
-import Test from '../components/Test'
-import ScaleTest from '../components/ScaleTest'
-import DynamicTest from '../components/DynamicTest'
-import ScatterPlotTest from '../components/ScatterPlotTest'
-import TipTest from '../components/TipTest'
+// import Test from '../components/Test'
+// import ScaleTest from '../components/ScaleTest'
+// import DynamicTest from '../components/DynamicTest'
+// import ScatterPlotTest from '../components/ScatterPlotTest'
+// import TipTest from '../components/TipTest'
+import LineTest from '../components/LineTest'
 
 export default function Home() {
   return (
@@ -19,7 +20,8 @@ export default function Home() {
         {/* <ScaleTest/> */}
         {/* <DynamicTest/> */}
         {/* <ScatterPlotTest/> */}
-        <TipTest/>
+        {/* <TipTest/> */}
+        <LineTest/>
       </main>
     </>
   )
