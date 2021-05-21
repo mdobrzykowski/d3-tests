@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 
-const StackTest = () => {
+const StackTest2 = () => {
     const chartAreaRef = useRef(null);
 
     useEffect(() => {
@@ -21,16 +21,14 @@ const StackTest = () => {
         const parseTime = d3.timeParse("%Y")
         
         const x = d3.scaleTime().range([0, WIDTH])
+        const x2 = d3.scaleBand()
+            .range([0, WIDTH])
+            .padding(0.1)
         const y = d3.scaleLinear().range([HEIGHT, 0])
         const z = d3.scaleOrdinal().range(d3.schemeCategory10)
         
         const stack = d3.stack()
             .order(d3.stackOrderDescending)
-
-        const area = d3.area()
-            .x(d => x(d.data.year))
-            .y0(d => y(d[0]))
-            .y1(d => y(d[1]));
 
 
         const xAxisCall = d3.axisBottom()
@@ -53,7 +51,8 @@ const StackTest = () => {
 
             const keys = ["value0", "value1", "value2"];
         
-            x.domain(d3.extent(data, d => d.year))
+            x.domain(d3.extent(data, d => d.year));
+            x2.domain(data.map(d => d.year));
             y.domain([
                 0,
                 d3.max(data, d => keys.map(k => d[k]).reduce((total, curr) => total + curr))
@@ -64,12 +63,18 @@ const StackTest = () => {
             const layer = g.selectAll('.layer')
                 .data(stack(data))
                 .enter().append('g')
-                .attr('class', 'layer');
+                .attr('class', 'layer')
+                .attr("fill", d => z(d.key));
 
-            layer.append('path')
-                .attr("class", "area")
-                .attr("fill", d => z(d.key))
-                .attr("d", area)
+            layer.selectAll('rect')
+                .data(d => d)
+                .enter()
+                .append('rect')
+                .attr('x', d => x2(d.data.year))
+                .attr('y', d =>  y(d[1]))
+                .attr('width', x2.bandwidth)
+                .attr("height", d => y(d[0]) - y(d[1]))
+                .attr("class", "rect")
         
             xAxis.call(xAxisCall.scale(x))
             yAxis.call(yAxisCall.scale(y))
@@ -81,4 +86,4 @@ const StackTest = () => {
     );
 }
 
-export default StackTest;
+export default StackTest2;

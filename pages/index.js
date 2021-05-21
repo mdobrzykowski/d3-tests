@@ -7,6 +7,7 @@ import Head from 'next/head'
 // import LineTest from '../components/LineTest'
 // import LayoutTest from '../components/LayoutTest'
 import StackTest from '../components/StackTest'
+import StackTest2 from '../components/StackTest2'
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
         {/* <LineTest/> */}
         {/* <LayoutTest/> */}
         <StackTest/>
+        <StackTest2/>
       </main>
     </>
   )
