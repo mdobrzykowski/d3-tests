@@ -47,9 +47,14 @@ const LineTest = () => {
             .attr("fill", "#5D6971")
             .text("Population)")
         
-        const line = d3.line()
+        // const line = d3.line()
+        //     .x(d => x(d.year))
+        //     .y(d => y(d.value))
+
+        const line = d3.area()
             .x(d => x(d.year))
-            .y(d => y(d.value))
+            .y0(y(0))
+            .y1(d => y(d.value))
         
         d3.json("data/lineTest.json").then(data => {
             data.forEach(d => {
@@ -68,7 +73,7 @@ const LineTest = () => {
         
             g.append("path")
                 .attr("class", "line")
-                .attr("fill", "none")
+                .attr("fill", "white")
                 .attr("stroke", "grey")
                 .attr("stroke-width", "3px")
                 .attr("d", line(data))
