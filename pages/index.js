@@ -4,7 +4,9 @@ import Head from 'next/head'
 // import DynamicTest from '../components/DynamicTest'
 // import ScatterPlotTest from '../components/ScatterPlotTest'
 // import TipTest from '../components/TipTest'
-import LineTest from '../components/LineTest'
+// import LineTest from '../components/LineTest'
+// import LayoutTest from '../components/LayoutTest'
+import StackTest from '../components/StackTest'
 
 export default function Home() {
   return (
@@ -21,7 +23,9 @@ export default function Home() {
         {/* <DynamicTest/> */}
         {/* <ScatterPlotTest/> */}
         {/* <TipTest/> */}
-        <LineTest/>
+        {/* <LineTest/> */}
+        {/* <LayoutTest/> */}
+        <StackTest/>
       </main>
     </>
   )
