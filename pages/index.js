@@ -8,7 +8,9 @@ import Head from 'next/head'
 // import LayoutTest from '../components/LayoutTest'
 // import StackTest from '../components/StackTest'
 // import StackTest2 from '../components/StackTest2'
-import PieTest from '../components/PieTest'
+// import PieTest from '../components/PieTest'
+// import BrushTest from '../components/PieTest'
+import ForceLayoutTest from '../components/ForceLayoutTest'
 
 export default function Home() {
   return (
@@ -29,7 +31,9 @@ export default function Home() {
         {/* <LayoutTest/> */}
         {/* <StackTest/>
         <StackTest2/> */}
-        <PieTest/>
+        {/* <PieTest/> */}
+        {/* <BrushTest/> */}
+        <ForceLayoutTest/>
       </main>
     </>
   )
