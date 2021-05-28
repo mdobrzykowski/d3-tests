@@ -61,7 +61,8 @@ const BrushTest = () => {
         const chartLine = d3.area()
             .x(d => x(d.date))
             .y0(y(0))
-            .y1(d => y(d.value));
+            .y1(d => y(d.value))
+            .defined(d => x(d.date) >= 0 && x(d.date) <= WIDTH);
 
         const brushLine = d3.area()
             .x(d => brushX(d.date))
@@ -92,7 +93,7 @@ const BrushTest = () => {
             chartYAxis.call(chartYAxisCall.scale(y));
             brushXAxis.call(brushXAxisCall.scale(brushX));
 
-            chartG.append("path")
+            const path = chartG.append("path")
                 .attr("class", "line")
                 .attr("fill", "white")
                 .attr("stroke", "grey")
@@ -105,13 +106,26 @@ const BrushTest = () => {
                 .attr("stroke", "white")
                 .attr("stroke-width", "1px")
                 .attr("d", brushLine(data))
-            // const brush = d3.brushX()
-            //     .extent([[margin.left, 0.5], [width - margin.right, focusHeight - margin.bottom + 0.5]])
-            //     .on("brush", brushed)
-            //     .on("end", brushended);
 
-            // const defaultSelection = [x(d3.utcYear.offset(x.domain()[1], -1)), x.range()[1]];
+            const brush = d3.brushX()
+                .extent([[0,0], [WIDTH, HEIGHTS.BRUSH]])
+                // .on("end", updateChart)
+                .on("brush", updateChart)
+
+            const defaultSelection = [WIDTH/3, WIDTH/1.5];
             
+            brushG.call(brush)
+                .call(brush.move, defaultSelection);
+
+            function updateChart(e) {
+                const domain = e.selection.map(s => brushX.invert(s));
+                x.domain(domain);
+                chartXAxis.call(chartXAxisCall.scale(x));
+                path.attr("d", chartLine(data));
+
+                
+                // chartYAxis.call(chartYAxisCall.scale(y));
+            };
         });
 
     }, []);
